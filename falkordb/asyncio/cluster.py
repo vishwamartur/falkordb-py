@@ -50,6 +50,13 @@ def Cluster_Conn(
             redis_exceptions.ConnectionError,
         ],
     )
+
+    # Add logic to handle replica connections
+    if read_from_replicas:
+        # Ensure the RedisCluster is configured to read from replicas
+        connection_kwargs["read_from_replicas"] = True
+        print("Configured to read from replicas.")
+
     return RedisCluster(
         host=host,
         port=port,
